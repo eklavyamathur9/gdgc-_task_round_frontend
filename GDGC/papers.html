@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Published Papers</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="papers.html">Published Papers</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Published Papers</h2>
+        <p>Browse the collection of research papers uploaded by our community.</p>
+        <ul>
+            <?php
+            $uploadDir = 'uploads/';
+            if (is_dir($uploadDir)) {
+                $files = scandir($uploadDir);
+                foreach ($files as $file) {
+                    if ($file !== '.' && $file !== '..') {
+                        $fileTitle = str_replace('_', ' ', pathinfo($file, PATHINFO_FILENAME)); // Create a readable title
+                        echo "<li><a href='$uploadDir$file' target='_blank'>$fileTitle</a></li>";
+                    }
+                }
+            } else {
+                echo "<p>No papers have been published yet. Be the first to contribute!</p>";
+            }
+            ?>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 Research Portal. All rights reserved.</p>
+    </footer>
+</body>
+</html>
